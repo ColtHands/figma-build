@@ -1,3 +1,10 @@
+# Figma build project
+
+## This project uses
+
+* `pnpm` - 7.13.4
+* `node` - 18.15.0
+
 ## Dev process
 
 1. Get npm token from private registry (npm, github, gitlab)
