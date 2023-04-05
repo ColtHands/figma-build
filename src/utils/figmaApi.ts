@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { FigmaRestMethods } from "./../types"
+import type { FigmaRestMethods } from "../types"
 
 export const apiUrl = "https://api.figma.com/v1"
 export const authHeader = {
@@ -11,10 +11,13 @@ export function figmaRequest(method: FigmaRestMethods): Promise<unknown> {
         method: 'get',
         url: `${apiUrl}${method}`,
         headers: authHeader
-    }).then(({ data }) => data).catch(err => console.error('Failed to fetch data from Figma Rest API'))
+    }).then(({ data }) => data).catch(err => {
+        console.error('Failed to fetch data from Figma Rest API')
+        throw err
+    })
 }
 
-export function fetchFileData(fileId) {
+export function fetchFileData(fileId: string) {
     return figmaRequest(`/files/${fileId}`)
 }
 
