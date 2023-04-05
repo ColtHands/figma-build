@@ -8,6 +8,5 @@ export function getNodeFills(){}
  * @returns - single node data found by it's name 
  */
 export function getNodeByName(nodes, name) {
-    console.log(getNodeByName, nodes)
     return nodes[Object.keys(nodes).find(key => nodes[key].document.name === name)]
 }
