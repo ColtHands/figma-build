@@ -11,3 +11,4 @@
 2. Set this `accessToken` as an argument in `pnpm dev` script inside `package.json`
 3. Find out file from which you want to get those styles from
    * In this URL `https://www.figma.com/file/P2oVdik0Q0pUoIxRIzaMjK/API_STUFF?t=Izh75bvDR8rlV1Yq-0` the file would be `P2oVdik0Q0pUoIxRIzaMjK`
+4. To debug the private package as binary you need to create `.npmrc` file with the following line `@colthands:registry=https://npm.pkg.github.com`
