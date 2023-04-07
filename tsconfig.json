@@ -3,6 +3,8 @@
         "strict": true,
         "forceConsistentCasingInFileNames": true,
         "module": "UMD",
-        "outDir": "dist"
+        "outDir": "dist",
+        "moduleResolution": "nodenext",
+        "esModuleInterop": true
     },
 }

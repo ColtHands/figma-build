@@ -11,7 +11,7 @@ export function figmaRequest(method: string): Promise<unknown> {
         method: 'get',
         url: `${apiUrl}${method}`,
         headers: authHeader
-    }).then(({ data }) => data).catch(err => console.error('Failed to fetch data from Figma Rest API', err))
+    }).then(({ data }: any) => data).catch((err:any) => console.error('Failed to fetch data from Figma Rest API', err))
 }
 
 export function fetchFileData(fileId: string) {
@@ -20,7 +20,8 @@ export function fetchFileData(fileId: string) {
 
 export function fetchFileNodes(fileId: string, nodeIds: string[]) {
     const nodeIdsAsUrlParams = new URLSearchParams([
-        ["ids", nodeIds]
+        ["ids", nodeIds.join(',')]
     ])
+    console.log('nodeIdsAsUrlParams', nodeIdsAsUrlParams)
     return figmaRequest(`/files/${fileId}/nodes?${nodeIdsAsUrlParams.toString()}`)
 }

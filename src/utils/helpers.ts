@@ -9,5 +9,5 @@ export function getNodeFills(){}
  */
 export function getNodeByName(nodes: any, name: any) {
     console.log(getNodeByName, nodes)
-    return nodes[Object.keys(nodes).find(key => nodes[key].document.name === name)]
+    return nodes[Object.keys(nodes).find(key => nodes[key].document.name === name)!]
 }
