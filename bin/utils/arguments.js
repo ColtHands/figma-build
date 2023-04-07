@@ -16,7 +16,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     var yargs_1 = __importDefault(require("yargs"));
     var helpers_1 = require("yargs/helpers");
     /**
-     * as unknown as Arguments` is intentional, otherwise setting types is a pain
+     * `as unknown as Arguments` is intentional, otherwise setting types is a pain
      * @see https://github.com/yargs/yargs/blob/main/docs/typescript.md
      */
     var args = (0, yargs_1.default)((0, helpers_1.hideBin)(process.argv)).argv;
