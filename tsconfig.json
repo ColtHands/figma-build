@@ -3,7 +3,7 @@
         "strict": true,
         "forceConsistentCasingInFileNames": true,
         "module": "UMD",
-        "outDir": "dist",
+        "outDir": "bin",
         "moduleResolution": "nodenext",
         "esModuleInterop": true
     },
