@@ -6,15 +6,12 @@ export const authHeader = {
     "X-Figma-Token": process.env.FIGMA_TOKEN
 }
 
-export function figmaRequest(method: FigmaRestMethods): Promise<unknown> {
+export function figmaRequest(method: string): Promise<unknown> {
     return axios({
         method: 'get',
         url: `${apiUrl}${method}`,
         headers: authHeader
-    }).then(({ data }) => data).catch(err => {
-        console.error('Failed to fetch data from Figma Rest API')
-        throw err
-    })
+    }).then(({ data }) => data).catch(err => console.error('Failed to fetch data from Figma Rest API', err))
 }
 
 export function fetchFileData(fileId: string) {
