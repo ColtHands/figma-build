@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { file } from "./utils/arguments"
 import { fetchFileData, fetchFileNodes } from './utils/figmaApi'
 import {
