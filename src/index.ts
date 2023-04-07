@@ -1,5 +1,9 @@
-import './utils/expandDotEnv'
 import { fetchFileData, fetchFileNodes } from './utils/figmaApi'
+import {
+    themePrimary,
+    themeDanger,
+    themeInfo
+} from './themeNames'
 
 import { getNodeByName } from './utils/helpers'
 import { parseColorFromNode } from "./utils/parseColor";
