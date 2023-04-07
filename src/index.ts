@@ -1,10 +1,8 @@
-import './utils/expandDotEnv'
 import { fetchFileData, fetchFileNodes } from './utils/figmaApi'
 import {
     themePrimary,
     themeDanger,
-    themeInfo,
-    themeSuccess
+    themeInfo
 } from './themeNames'
 
 import { getNodeByName } from './utils/helpers'

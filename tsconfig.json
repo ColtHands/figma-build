@@ -2,6 +2,7 @@
     "compilerOptions": {
         "strict": true,
         "forceConsistentCasingInFileNames": true,
-        "module": "commonjs"
-    }
+        "module": "UMD",
+        "outDir": "dist"
+    },
 }

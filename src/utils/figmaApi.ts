@@ -1,9 +1,9 @@
 import axios from 'axios'
-import type { FigmaRestMethods } from "./../types"
+import { accessToken } from './arguments'
 
 export const apiUrl = "https://api.figma.com/v1"
 export const authHeader = {
-    "X-Figma-Token": process.env.FIGMA_TOKEN
+    "X-Figma-Token": accessToken
 }
 
 export function figmaRequest(method: string): Promise<unknown> {
@@ -19,8 +19,8 @@ export function fetchFileData(fileId) {
 }
 
 export function fetchFileNodes(fileId: string, nodeIds: string[]) {
-    const nodeIdsAsUrlParams = new URLSearchParams({
-        ids: nodeIds
-    })
+    const nodeIdsAsUrlParams = new URLSearchParams([
+        ["ids", nodeIds]
+    ])
     return figmaRequest(`/files/${fileId}/nodes?${nodeIdsAsUrlParams.toString()}`)
 }
