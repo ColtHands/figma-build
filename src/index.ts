@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
-import { file } from "./utils/arguments"
-import { fetchFileData, fetchFileNodes } from './utils/figmaApi'
+import { file } from "./arguments"
+import { fetchFileData, fetchFileNodes } from './figmaApi'
+import { writeFile } from './utils/writeFile'
 import {
     themePrimary,
     themeDanger,
@@ -10,7 +11,9 @@ import {
 
 import { getNodeByName } from './utils/helpers'
 
-getFigmaThemeStyles()
+getFigmaThemeStyles().then(data => {
+    writeFile('output', 'json', JSON.stringify(data), '/lib')
+})
 
 async function getFigmaThemeStyles() {
     const fileData: any = await fetchFileData(file)

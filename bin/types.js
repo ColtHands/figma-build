@@ -9,4 +9,11 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.OutputFormat = void 0;
+    var OutputFormat;
+    (function (OutputFormat) {
+        OutputFormat["json"] = "json";
+        OutputFormat["js"] = "js";
+        OutputFormat["css"] = "css";
+    })(OutputFormat = exports.OutputFormat || (exports.OutputFormat = {}));
 });
