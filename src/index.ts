@@ -1,6 +1,5 @@
 #!/usr/bin/env node
-
-import { file } from "./arguments"
+import { file, filename, outputPath } from "./arguments"
 import { fetchFileData, fetchFileNodes } from './figmaApi'
 import { writeFile } from './utils/writeFile'
 import {
@@ -14,7 +13,7 @@ import { parseColorFromNode } from "./utils/parseColor";
 import { type ColorThemeItem, type EffectThemeItem, StyleType, type TextThemeItem, type ThemeMap} from "./types";
 
 getFigmaThemeStyles().then(data => {
-    writeFile('output', 'json', JSON.stringify(data), '/lib')
+    writeFile('output', 'json', JSON.stringify(data), outputPath)
 })
 
 async function getFigmaThemeStyles() {
