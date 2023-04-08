@@ -17,18 +17,16 @@
   },
   "dependencies": {
     "axios": "^1.3.4",
-    "node-schedule": "^2.1.1",
-    "nodemon": "^2.0.22",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.0.3",
     "yargs": "^17.7.1"
-  },
-  "devDependencies": {
+},
+"devDependencies": {
+    "typescript": "^5.0.3",
+    "ts-node": "^10.9.1",
     "@types/node": "^18.15.11",
     "@types/yargs": "^17.0.24"
   },
   "scripts": {
-    "dev": "nodemon src/index.ts --accessToken figd_8LymySpjTOr3YbRhrlrt98ZppFyCUrRyV4UP4eHF --file P2oVdik0Q0pUoIxRIzaMjK",
+    "dev": "ts-node src/index.ts --accessToken figd_8LymySpjTOr3YbRhrlrt98ZppFyCUrRyV4UP4eHF --file P2oVdik0Q0pUoIxRIzaMjK --outputPath /libs",
     "start": "ts-node src/index.ts",
     "build": "tsc -b"
   }

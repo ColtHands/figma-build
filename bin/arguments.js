@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.outputFormat = exports.outputPath = exports.file = exports.accessToken = void 0;
+    exports.outputFormat = exports.filename = exports.outputPath = exports.file = exports.accessToken = void 0;
     var yargs_1 = __importDefault(require("yargs"));
     var helpers_1 = require("yargs/helpers");
     /**
@@ -23,11 +23,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     // TODO: Add -v | --version flags
     // TODO: Add `figma-build theme` flag
     // TODO: Add `figma-build components` flag
-    // TODO: Add --outputPath argument - the folder in which built files should be placed
-    // TODO: Add --outputFormat argument - format of the built files - json | js | ts | css | css-in-js | sass | scss | postcss (for now at least json)
+    console.log("ARGUMENTS", args);
     exports.accessToken = args.accessToken;
     exports.file = args.file;
-    exports.outputPath = args.outputPath;
+    exports.outputPath = args.outputPath || '';
+    exports.filename = args.filename || '';
     exports.outputFormat = args.outputFormat;
     if (!exports.accessToken) {
         throw "--accessToken wasn't provided";

@@ -7,7 +7,8 @@ export type Arguments = {
     accessToken: string,
     file: string,
     outputPath: string,
-    outputFormat: OutputFormat
+    filename: string,
+    outputFormat: OutputFormat,
 }
 
 export enum OutputFormat {
