@@ -6,4 +6,12 @@
 export type Arguments = {
     accessToken: string,
     file: string,
+    outputPath: string,
+    outputFormat: OutputFormat
+}
+
+export enum OutputFormat {
+    json = 'json',
+    js = 'js',
+    css = 'css'
 }

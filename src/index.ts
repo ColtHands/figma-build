@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
-import { file } from "./utils/arguments"
-import { fetchFileData, fetchFileNodes } from './utils/figmaApi'
+import { file } from "./arguments"
+import { fetchFileData, fetchFileNodes } from './figmaApi'
+import { writeFile } from './utils/writeFile'
 import {
     themePrimary,
     themeDanger,
@@ -12,7 +13,9 @@ import { getNodeByName } from './utils/helpers'
 import { parseColorFromNode } from "./utils/parseColor";
 import { type ColorThemeItem, type EffectThemeItem, StyleType, type TextThemeItem, type ThemeMap} from "./types";
 
-getFigmaThemeStyles("ADLFGyGwPwwHj3U5kZOdH9").then(console.log)
+getFigmaThemeStyles().then(data => {
+    writeFile('output', 'json', JSON.stringify(data), '/lib')
+})
 
 async function getFigmaThemeStyles() {
     const fileData: any = await fetchFileData(file)

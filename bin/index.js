@@ -41,16 +41,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./utils/arguments", "./utils/figmaApi", "./themeNames", "./utils/helpers"], factory);
+        define(["require", "exports", "./arguments", "./figmaApi", "./utils/writeFile", "./themeNames", "./utils/helpers"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var arguments_1 = require("./utils/arguments");
-    var figmaApi_1 = require("./utils/figmaApi");
+    var arguments_1 = require("./arguments");
+    var figmaApi_1 = require("./figmaApi");
+    var writeFile_1 = require("./utils/writeFile");
     var themeNames_1 = require("./themeNames");
     var helpers_1 = require("./utils/helpers");
-    getFigmaThemeStyles();
+    getFigmaThemeStyles().then(function (data) {
+        (0, writeFile_1.writeFile)('output', 'json', JSON.stringify(data), '/lib');
+    });
     function getFigmaThemeStyles() {
         return __awaiter(this, void 0, void 0, function () {
             var fileData, styleNodeIds, nodeData, nodes, nodeStyles, nodeFills;
