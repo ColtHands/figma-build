@@ -52,7 +52,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var themeNames_1 = require("./themeNames");
     var helpers_1 = require("./utils/helpers");
     getFigmaThemeStyles().then(function (data) {
-        (0, writeFile_1.writeFile)('output', 'json', JSON.stringify(data), '/lib');
+        (0, writeFile_1.writeFile)('output', 'json', JSON.stringify(data), arguments_1.outputPath);
     });
     function getFigmaThemeStyles() {
         return __awaiter(this, void 0, void 0, function () {
