@@ -1,3 +1,5 @@
+import path from 'path'
+
 /**
  * This function takes node information received from `/files/:fileId/nodes` for a single node
  */
@@ -10,4 +12,8 @@ export function getNodeFills(){}
 export function getNodeByName(nodes: any, name: any) {
     console.log(getNodeByName, nodes)
     return nodes[Object.keys(nodes).find(key => nodes[key].document.name === name)!]
+}
+
+export function parseOutputPath(outputPathArgument?: string) {
+    console.log(process.cwd)
 }

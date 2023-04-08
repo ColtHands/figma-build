@@ -5,6 +5,7 @@
         "module": "UMD",
         "outDir": "bin",
         "moduleResolution": "nodenext",
-        "esModuleInterop": true
+        "esModuleInterop": true,
     },
+    "exclude": ["lib"]
 }
