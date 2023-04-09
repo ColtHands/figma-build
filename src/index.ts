@@ -3,15 +3,10 @@ import { file, filename, outputPath, command } from "./arguments"
 import { Commands } from './types'
 import { fetchFileData, fetchFileNodes } from './figmaApi'
 import { writeFile } from './utils/writeFile'
-import {
-    themePrimary,
-    themeDanger,
-    themeInfo
-} from './themeNames'
-
 import { getNodeByName } from './utils/helpers'
-import { parseColorFromNode } from "./utils/parseColor";
-import { type ColorThemeItem, type EffectThemeItem, StyleType, type TextThemeItem, type ThemeMap} from "./types";
+import { getColorThemeStyles } from "./utils/getColorTheme";
+import { getTextThemeStyles } from './utils/getTextTheme'
+import { type ColorThemeItem, type EffectThemeItem, StyleType, type ThemeMap} from "./types";
 
 if(command === Commands.theme) {
     getFigmaThemeStyles().then(data => {
@@ -26,39 +21,24 @@ async function getFigmaThemeStyles() {
 
     const nodeData: any = await fetchFileNodes(file, styleNodeIds)
     const nodes: any = nodeData.nodes
-    console.log("nodes", nodes)
-    
-    const nodeData = await fetchFileNodes(fileId, styleNodeIds)
-    const nodes = nodeData.nodes
 
     Object.entries(themeMap).forEach(([key, values]) => {
         const node = getNodeByName(nodes, key)
-        
+
         switch (values.styleType) {
             case StyleType.FILL:
-                Object.assign(values, getColorThemeItem(node))
+                Object.assign(values, getColorThemeStyles(node))
                 break
             case StyleType.EFFECT: // shadows, blurs etc...
                 Object.assign(values, getEffectThemeItem(node))
                 break
             case StyleType.TEXT: // text styles: font-family, font-weight, font-size, line-height, letter-spacing, paragraph-spacing, text-decorations, text-transform, etc.
-                Object.assign(values, getTextThemeItem(node))
+                Object.assign(values, getTextThemeStyles(node))
                 break
         }
     })
     
     return themeMap
-
-    return nodeFills
-
-    // TODO: Parse rgba to hex or normal rgba
-    // TODO: Create json for those themes
-    // TODO: Publish package
-}
-
-
-function getColorThemeItem(node): Omit<ColorThemeItem, "styleType"> {
-    return { color: parseColorFromNode(node) }
 }
 
 function getEffectThemeItem(node): Omit<EffectThemeItem, "styleType"> {
@@ -66,7 +46,3 @@ function getEffectThemeItem(node): Omit<EffectThemeItem, "styleType"> {
     return { boxShadow: "" }
 }
 
-function getTextThemeItem(node): Omit<TextThemeItem, "styleType"> {
-    // TODO: parse text styles
-    return { fontSize: "" }
-}
