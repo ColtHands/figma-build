@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import { file, filename, outputPath } from "./arguments"
+import { file, filename, outputPath, command } from "./arguments"
+import { Commands } from './types'
 import { fetchFileData, fetchFileNodes } from './figmaApi'
 import { writeFile } from './utils/writeFile'
 import {
@@ -12,9 +13,11 @@ import { getNodeByName } from './utils/helpers'
 import { parseColorFromNode } from "./utils/parseColor";
 import { type ColorThemeItem, type EffectThemeItem, StyleType, type TextThemeItem, type ThemeMap} from "./types";
 
-getFigmaThemeStyles().then(data => {
-    writeFile('output', 'json', JSON.stringify(data), outputPath)
-})
+if(command === Commands.theme) {
+    getFigmaThemeStyles().then(data => {
+        writeFile('output', 'json', JSON.stringify(data), outputPath)
+    })
+}
 
 async function getFigmaThemeStyles() {
     const fileData: any = await fetchFileData(file)
