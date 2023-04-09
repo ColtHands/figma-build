@@ -19,11 +19,11 @@ console.log("ARGUMENTS", hideBin(process.argv), args)
 
 export const command = argvWithoutBin[0]
 export const accessToken = args.accessToken
-export const file = args.file
+export const fileId = args.fileId
 export const outputPath = args.outputPath || ''
 export const filename = args.filename || ''
 export const outputFormat = args.outputFormat
 
 if(!accessToken) { throw "--accessToken wasn't provided" }
-if(!file) { throw "--file wasn't provided" }
+if(!fileId) { throw "--fileId wasn't provided" }
 if(!(command in Commands)) { throw `Initial command wasn't found, was looking for [${Object.values(Commands).join(" | ")}]` }
