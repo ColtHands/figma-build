@@ -3,3 +3,4 @@ node_modules
 .bashrc
 .npmrc
 lib
+Makefile
