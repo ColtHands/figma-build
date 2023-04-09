@@ -1,28 +1,36 @@
-import './utils/expandDotEnv'
-import { fetchFileData, fetchFileNodes } from './utils/figmaApi'
+#!/usr/bin/env node
+import { file, filename, outputPath, command } from "./arguments"
+import { Commands } from './types'
+import { fetchFileData, fetchFileNodes } from './figmaApi'
+import { writeFile } from './utils/writeFile'
 import {
     themePrimary,
     themeDanger,
-    themeInfo,
-    themeSuccess
+    themeInfo
 } from './themeNames'
 
 import { getNodeByName } from './utils/helpers'
 
-getFigmaThemeStyles()
+if(command === Commands.theme) {
+    getFigmaThemeStyles().then(data => {
+        writeFile('output', 'json', JSON.stringify(data), outputPath)
+    })
+}
 
 async function getFigmaThemeStyles() {
-    const fileData = await fetchFileData("P2oVdik0Q0pUoIxRIzaMjK")
-    const styleNodeIds = Object.keys(fileData.styles)
+    const fileData: any = await fetchFileData(file)
+    const styleNodeIds: any = Object.keys(fileData.styles)
     console.log('styleNodeIds', styleNodeIds)
 
-    const nodeData = await fetchFileNodes("P2oVdik0Q0pUoIxRIzaMjK", styleNodeIds)
-    const nodes = nodeData.nodes
+    const nodeData: any = await fetchFileNodes(file, styleNodeIds)
+    const nodes: any = nodeData.nodes
     console.log("nodes", nodes)
     
     const nodeStyles = getNodeByName(nodes, themePrimary)
     const nodeFills = nodeStyles.document.fills
     console.log('nodeFills', nodeFills)
+
+    return nodeFills
 
     // TODO: Parse rgba to hex or normal rgba
     // TODO: Create json for those themes
