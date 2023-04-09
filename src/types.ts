@@ -16,3 +16,8 @@ export enum OutputFormat {
     js = 'js',
     css = 'css'
 }
+
+export enum Commands {
+    theme = 'theme',
+    components = 'build'
+}
