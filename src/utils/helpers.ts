@@ -13,7 +13,3 @@ export function getNodeByName(nodes: any, name: any) {
     console.log(getNodeByName, nodes)
     return nodes[Object.keys(nodes).find(key => nodes[key].document.name === name)!]
 }
-
-export function parseOutputPath(outputPathArgument?: string) {
-    console.log(process.cwd)
-}
