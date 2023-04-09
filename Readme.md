@@ -7,14 +7,18 @@
 
 ## Dev process
 
-1. Get npm token from private registry (npm, github, gitlab)
-2. Set this npm token `npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`
-3. Verify if the npm token is set within the config with `npm config list | grep _authToken`
-4. Login to your private registry `npm login --scope=@ColtHands --registry=https://npm.pkg.github.com`
-   1. Input your login and password (`NPM_TOKEN`) in case of github
-5. Create `.npmrc` file with similar contents where `NPM_TOKEN` is your token from registry (npm, github, gitlab)
+1. Obtain `accessToken` from your figma settings/account.
+2. Set this `accessToken` as an argument in `pnpm dev` script inside `package.json`
+3. Find out file from which you want to get those styles from
+   * In this URL `https://www.figma.com/file/P2oVdik0Q0pUoIxRIzaMjK/API_STUFF?t=Izh75bvDR8rlV1Yq-0` the file would be `P2oVdik0Q0pUoIxRIzaMjK`
+4. To debug the private package as binary you need to create `.npmrc` file with the following line `@colthands:registry=https://npm.pkg.github.com`
 
-```bash
-@colthands:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=NPM_TOKEN
-```
+## Usage
+
+### As an `npx` or `pnpx` without installation (both are similar)
+
+`npx @colthands/figma-build --accessToken figd_8LymySpjTOr3YbRhrlrt98ZppFyCUrRyV4UP4eHF --file P2oVdik0Q0pUoIxRIzaMjK`
+
+### Install globally (for now only from private repository)
+
+* Currently there are mismatches within registries, and there is no normal way to install `figma-build` from a github registry and fallback to `npm` registry.

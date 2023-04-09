@@ -1,3 +1,5 @@
+import path from 'path'
+
 /**
  * This function takes node information received from `/files/:fileId/nodes` for a single node
  */

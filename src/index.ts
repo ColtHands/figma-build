@@ -1,21 +1,29 @@
-import './utils/expandDotEnv'
-import { fetchFileData, fetchFileNodes } from './utils/figmaApi'
+#!/usr/bin/env node
+import { fileId, filename, outputPath, command } from "./arguments"
+import { Commands } from './types'
+import { fetchFileData, fetchFileNodes } from './figmaApi'
+import { writeFile } from './utils/writeFile'
 
 import { getNodeByName } from './utils/helpers'
 import { parseColorFromNode } from "./utils/parseColor";
 import { type ColorThemeItem, type EffectThemeItem, StyleType, type TextThemeItem, type ThemeMap} from "./types";
 
-getFigmaThemeStyles("ADLFGyGwPwwHj3U5kZOdH9").then(console.log)
+if(command === Commands.theme) {
+    getFigmaThemeStyles(fileId).then(data => {
+        writeFile('output', 'json', JSON.stringify(data, null, 4), outputPath)
+    })
+}
 
 async function getFigmaThemeStyles(fileId: string): Promise<ThemeMap> {
-    const fileData = await fetchFileData(fileId)
-    const styleNodeIds = Object.keys(fileData.styles)
+    const fileData: any = await fetchFileData(fileId)
+    const styleNodeIds: any = Object.keys(fileData.styles)
 
     const themeMap: ThemeMap = Object.values(fileData.styles)
         .reduce((prev, values) => ({...prev, [values.name]: { styleType: values.styleType }}), {})
-    
-    const nodeData = await fetchFileNodes(fileId, styleNodeIds)
-    const nodes = nodeData.nodes
+
+    const nodeData: any = await fetchFileNodes(fileId, styleNodeIds)
+    const nodes: any = nodeData.nodes
+    console.log("nodes", nodes)
 
     Object.entries(themeMap).forEach(([key, values]) => {
         const node = getNodeByName(nodes, key)
@@ -41,16 +49,16 @@ async function getFigmaThemeStyles(fileId: string): Promise<ThemeMap> {
 }
 
 
-function getColorThemeItem(node): Omit<ColorThemeItem, "styleType"> {
+function getColorThemeItem(node: any): Omit<ColorThemeItem, "styleType"> {
     return { color: parseColorFromNode(node) }
 }
 
-function getEffectThemeItem(node): Omit<EffectThemeItem, "styleType"> {
+function getEffectThemeItem(node: any): Omit<EffectThemeItem, "styleType"> {
     // TODO: parse effect styles
     return { boxShadow: "" }
 }
 
-function getTextThemeItem(node): Omit<TextThemeItem, "styleType"> {
+function getTextThemeItem(node: any): Omit<TextThemeItem, "styleType"> {
     // TODO: parse text styles
     return { fontSize: "" }
 }
