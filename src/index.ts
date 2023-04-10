@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { file, filename, outputPath, command } from "./arguments"
-import { Commands } from './types'
+import { fileId, filename, outputPath, command, outputFormat } from "./arguments"
+import { Commands, OutputFormat } from './types'
 import { fetchFileData, fetchFileNodes } from './figmaApi'
 import { writeFile } from './utils/writeFile'
 import { getNodeByName } from './utils/helpers'
@@ -9,8 +9,14 @@ import { getTextThemeStyles } from './utils/getTextTheme'
 import { type ColorThemeItem, type EffectThemeItem, StyleType, type ThemeMap} from "./types";
 
 if(command === Commands.theme) {
-    getFigmaThemeStyles().then(data => {
-        writeFile('output', 'json', JSON.stringify(data), outputPath)
+    getFigmaThemeStyles(fileId).then(theme => {
+        console.log("THEME", theme)
+        if(!outputFormat || outputFormat === OutputFormat.json) {
+            writeFile('output', 'json', JSON.stringify(theme, null, 4), outputPath)
+        }
+        if(outputFormat == OutputFormat.commonjs) {
+            writeFile('output', 'js', `module.exports = ${JSON.stringify(theme, null, 4)}`, outputPath)
+        }
     })
 }
 
