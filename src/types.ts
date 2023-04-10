@@ -51,7 +51,8 @@ export type Arguments = {
 
 export enum OutputFormat {
     json = 'json',
-    js = 'js',
+    esm = 'esm',
+    commonjs = 'commonjs',
     css = 'css'
 }
 
