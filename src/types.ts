@@ -57,12 +57,15 @@ export interface Color {
 }
 
 export enum FillType {
+    SOLID = "SOLID",
     GRADIENT_LINEAR = "GRADIENT_LINEAR",
-    SOLID = "SOLID"
+    GRADIENT_RADIAL = "GRADIENT_RADIAL",
+    GRADIENT_ANGULAR = "GRADIENT_ANGULAR",
+    GRADIENT_DIAMOND = "GRADIENT_DIAMOND"
 }
 
-export interface FillLinearGradient {
-    type: FillType.GRADIENT_LINEAR
+export interface FillGradient {
+    type: FillType.GRADIENT_LINEAR | FillType.GRADIENT_RADIAL | FillType.GRADIENT_ANGULAR | FillType.GRADIENT_DIAMOND
     opacity: number
     gradientStops: Array<{
         color: Color;
@@ -79,4 +82,6 @@ export interface FillSolid {
     color: Color
 }
 
-export type Fill = FillLinearGradient | FillSolid
+export type Fill = FillGradient | FillSolid
+
+export type GradientFunctionType = "linear-gradient" | "radial-gradient" |"conic-gradient"
