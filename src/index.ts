@@ -27,13 +27,16 @@ async function getFigmaThemeStyles() {
 
     const nodeData: any = await fetchFileNodes(file, styleNodeIds)
     const nodes: any = nodeData.nodes
+    // console.log("nodes", nodes)
 
     Object.entries(themeMap).forEach(([key, values]) => {
         const node = getNodeByName(nodes, key)
 
         switch (values.styleType) {
             case StyleType.FILL:
-                Object.assign(values, getColorThemeStyles(node))
+                if(node.document.name === "gradient") console.log("node", node.document)
+                
+                Object.assign(values, getColorThemeItem(node))
                 break
             case StyleType.EFFECT: // shadows, blurs etc...
                 Object.assign(values, getEffectThemeItem(node))

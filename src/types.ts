@@ -61,23 +61,34 @@ export enum Commands {
     components = 'build'
 }
 
-export interface FillNode {
-    document: {
-        id: string,
-        name: string,
-        fills: Array<{
-            opacity: number,
-            color: {
-                r: number,
-                g: number,
-                b: number,
-                a: number
-            }
-        }>,
-        strokes: Array<any>,
-    },
-    components: Record<string, never>,
-    componentSets: Record<string, never>,
-    schemaVersion: 0,
-    styles: Record<string, never>
+export interface Color { 
+    r: number
+    g: number
+    b: number
+    a: number
 }
+
+export enum FillType {
+    GRADIENT_LINEAR = "GRADIENT_LINEAR",
+    SOLID = "SOLID"
+}
+
+export interface FillLinearGradient {
+    type: FillType.GRADIENT_LINEAR
+    opacity: number
+    gradientStops: Array<{
+        color: Color;
+        /**
+         * From 0 to 1
+         */
+        position: number;
+    }>
+}
+
+export interface FillSolid {
+    type: FillType.SOLID
+    opacity: number
+    color: Color
+}
+
+export type Fill = FillLinearGradient | FillSolid
