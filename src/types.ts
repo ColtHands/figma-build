@@ -48,3 +48,35 @@ export enum Commands {
     theme = 'theme',
     components = 'build'
 }
+
+export interface Color { 
+    r: number
+    g: number
+    b: number
+    a: number
+}
+
+export enum FillType {
+    GRADIENT_LINEAR = "GRADIENT_LINEAR",
+    SOLID = "SOLID"
+}
+
+export interface FillLinearGradient {
+    type: FillType.GRADIENT_LINEAR
+    opacity: number
+    gradientStops: Array<{
+        color: Color;
+        /**
+         * From 0 to 1
+         */
+        position: number;
+    }>
+}
+
+export interface FillSolid {
+    type: FillType.SOLID
+    opacity: number
+    color: Color
+}
+
+export type Fill = FillLinearGradient | FillSolid
