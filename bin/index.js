@@ -1,4 +1,15 @@
 #!/usr/bin/env node
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -41,44 +52,79 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./arguments", "./figmaApi", "./utils/writeFile", "./themeNames", "./utils/helpers"], factory);
+        define(["require", "exports", "./arguments", "./types", "./figmaApi", "./utils/writeFile", "./utils/helpers", "./utils/parseColor", "./utils/getTextTheme", "./types"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var arguments_1 = require("./arguments");
+    var types_1 = require("./types");
     var figmaApi_1 = require("./figmaApi");
     var writeFile_1 = require("./utils/writeFile");
-    var themeNames_1 = require("./themeNames");
     var helpers_1 = require("./utils/helpers");
-    getFigmaThemeStyles().then(function (data) {
-        (0, writeFile_1.writeFile)('output', 'json', JSON.stringify(data), arguments_1.outputPath);
-    });
-    function getFigmaThemeStyles() {
+    var parseColor_1 = require("./utils/parseColor");
+    var getTextTheme_1 = require("./utils/getTextTheme");
+    var types_2 = require("./types");
+    if (arguments_1.command === types_1.Commands.theme) {
+        getFigmaThemeStyles(arguments_1.fileId).then(function (theme) {
+            console.log("THEME", theme);
+            if (!arguments_1.outputFormat || arguments_1.outputFormat === types_1.OutputFormat.json) {
+                (0, writeFile_1.writeFile)('output', 'json', JSON.stringify(theme, null, 4), arguments_1.outputPath);
+            }
+            if (arguments_1.outputFormat == types_1.OutputFormat.commonjs) {
+                (0, writeFile_1.writeFile)('output', 'js', "module.exports = ".concat(JSON.stringify(theme, null, 4)), arguments_1.outputPath);
+            }
+        });
+    }
+    function getFigmaThemeStyles(fileId) {
         return __awaiter(this, void 0, void 0, function () {
-            var fileData, styleNodeIds, nodeData, nodes, nodeStyles, nodeFills;
+            var fileData, styleNodeIds, themeMap, nodeData, nodes;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, figmaApi_1.fetchFileData)(arguments_1.file)];
+                    case 0: return [4 /*yield*/, (0, figmaApi_1.fetchFileData)(fileId)];
                     case 1:
                         fileData = _a.sent();
                         styleNodeIds = Object.keys(fileData.styles);
-                        console.log('styleNodeIds', styleNodeIds);
-                        return [4 /*yield*/, (0, figmaApi_1.fetchFileNodes)(arguments_1.file, styleNodeIds)];
+                        themeMap = Object.values(fileData.styles)
+                            .reduce(function (prev, values) {
+                            var _a;
+                            return (__assign(__assign({}, prev), (_a = {}, _a[values.name] = { styleType: values.styleType }, _a)));
+                        }, {});
+                        return [4 /*yield*/, (0, figmaApi_1.fetchFileNodes)(fileId, styleNodeIds)];
                     case 2:
                         nodeData = _a.sent();
                         nodes = nodeData.nodes;
-                        console.log("nodes", nodes);
-                        nodeStyles = (0, helpers_1.getNodeByName)(nodes, themeNames_1.themePrimary);
-                        nodeFills = nodeStyles.document.fills;
-                        console.log('nodeFills', nodeFills);
-                        return [2 /*return*/, nodeFills
-                            // TODO: Parse rgba to hex or normal rgba
-                            // TODO: Create json for those themes
-                            // TODO: Publish package
-                        ];
+                        Object.entries(themeMap).forEach(function (_a) {
+                            var key = _a[0], values = _a[1];
+                            var node = (0, helpers_1.getNodeByName)(nodes, key);
+                            switch (values.styleType) {
+                                case types_2.StyleType.FILL:
+                                    if (node.document.name === "gradient")
+                                        console.log("node", node.document);
+                                    Object.assign(values, getColorThemeItem(node));
+                                    break;
+                                case types_2.StyleType.EFFECT: // shadows, blurs etc...
+                                    Object.assign(values, getEffectThemeItem(node));
+                                    break;
+                                case types_2.StyleType.TEXT: // text styles: font-family, font-weight, font-size, line-height, letter-spacing, paragraph-spacing, text-decorations, text-transform, etc.
+                                    Object.assign(values, (0, getTextTheme_1.getTextThemeStyles)(node));
+                                    break;
+                            }
+                        });
+                        return [2 /*return*/, themeMap];
                 }
             });
         });
+    }
+    function getColorThemeItem(node) {
+        return { color: (0, parseColor_1.parseColorFromNode)(node) };
+    }
+    function getEffectThemeItem(node) {
+        // TODO: parse effect styles
+        return { boxShadow: "" };
+    }
+    function getTextThemeItem(node) {
+        // TODO: parse text styles
+        return { fontSize: "" };
     }
 });

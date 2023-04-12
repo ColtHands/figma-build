@@ -4,9 +4,9 @@ import { Commands, OutputFormat } from './types'
 import { fetchFileData, fetchFileNodes } from './figmaApi'
 import { writeFile } from './utils/writeFile'
 import { getNodeByName } from './utils/helpers'
-import { getColorThemeStyles } from "./utils/getColorTheme";
+import { parseColorFromNode } from "./utils/parseColor";
 import { getTextThemeStyles } from './utils/getTextTheme'
-import { type ColorThemeItem, type EffectThemeItem, StyleType, type ThemeMap} from "./types";
+import { type ColorThemeItem, type EffectThemeItem, StyleType, type ThemeMap, type TextThemeItem } from "./types";
 
 if(command === Commands.theme) {
     getFigmaThemeStyles(fileId).then(theme => {
@@ -25,7 +25,7 @@ async function getFigmaThemeStyles(fileId: string): Promise<ThemeMap> {
     const styleNodeIds: any = Object.keys(fileData.styles)
 
     const themeMap: ThemeMap = Object.values(fileData.styles)
-        .reduce((prev, values) => ({...prev, [values.name]: { styleType: values.styleType }}), {})
+        .reduce((prev: any, values: any) => ({...prev, [values.name]: { styleType: values.styleType }}), {}) as ThemeMap;
 
     const nodeData: any = await fetchFileNodes(fileId, styleNodeIds)
     const nodes: any = nodeData.nodes
@@ -51,8 +51,16 @@ async function getFigmaThemeStyles(fileId: string): Promise<ThemeMap> {
     return themeMap
 }
 
+function getColorThemeItem(node: any): Omit<ColorThemeItem, "styleType"> {
+    return { color: parseColorFromNode(node) }
+}
+
 function getEffectThemeItem(node: any): Omit<EffectThemeItem, "styleType"> {
     // TODO: parse effect styles
     return { boxShadow: "" }
 }
 
+function getTextThemeItem(node: any): Omit<TextThemeItem, "styleType"> {
+    // TODO: parse text styles
+    return { fontSize: "" }
+}
