@@ -1,6 +1,4 @@
-import type { TextThemeItem, } from '../types'
-
-export function getTextThemeStyles(node: any): Omit<TextThemeItem, "styleType"> {
+export function getTextThemeStyles(node: any): any {
     if(!node?.document?.style) return {}
 
     const {
