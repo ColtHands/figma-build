@@ -1,16 +1,22 @@
 #!/usr/bin/env node
-import { fileId, filename, outputPath, command } from "./arguments"
-import { Commands } from './types'
+import { fileId, filename, outputPath, command, outputFormat } from "./arguments"
+import { Commands, OutputFormat } from './types'
 import { fetchFileData, fetchFileNodes } from './figmaApi'
 import { writeFile } from './utils/writeFile'
-
 import { getNodeByName } from './utils/helpers'
 import { parseColorFromNode } from "./utils/parseColor";
-import { type ColorThemeItem, type EffectThemeItem, StyleType, type TextThemeItem, type ThemeMap} from "./types";
+import { getTextThemeStyles } from './utils/getTextTheme'
+import { type ColorThemeItem, type EffectThemeItem, StyleType, type ThemeMap, type TextThemeItem } from "./types";
 
 if(command === Commands.theme) {
-    getFigmaThemeStyles(fileId).then(data => {
-        writeFile('output', 'json', JSON.stringify(data, null, 4), outputPath)
+    getFigmaThemeStyles(fileId).then(theme => {
+        console.log("THEME", theme)
+        if(!outputFormat || outputFormat === OutputFormat.json) {
+            writeFile('output', 'json', JSON.stringify(theme, null, 4), outputPath)
+        }
+        if(outputFormat == OutputFormat.commonjs) {
+            writeFile('output', 'js', `module.exports = ${JSON.stringify(theme, null, 4)}`, outputPath)
+        }
     })
 }
 
@@ -19,15 +25,14 @@ async function getFigmaThemeStyles(fileId: string): Promise<ThemeMap> {
     const styleNodeIds: any = Object.keys(fileData.styles)
 
     const themeMap: ThemeMap = Object.values(fileData.styles)
-        .reduce((prev, values) => ({...prev, [values.name]: { styleType: values.styleType }}), {})
+        .reduce((prev: any, values: any) => ({...prev, [values.name]: { styleType: values.styleType }}), {}) as ThemeMap;
 
     const nodeData: any = await fetchFileNodes(fileId, styleNodeIds)
     const nodes: any = nodeData.nodes
-    // console.log("nodes", nodes)
 
     Object.entries(themeMap).forEach(([key, values]) => {
         const node = getNodeByName(nodes, key)
-        
+
         switch (values.styleType) {
             case StyleType.FILL:
                 if(node.document.name === "gradient") console.log("node", node.document)
@@ -38,18 +43,13 @@ async function getFigmaThemeStyles(fileId: string): Promise<ThemeMap> {
                 Object.assign(values, getEffectThemeItem(node))
                 break
             case StyleType.TEXT: // text styles: font-family, font-weight, font-size, line-height, letter-spacing, paragraph-spacing, text-decorations, text-transform, etc.
-                Object.assign(values, getTextThemeItem(node))
+                Object.assign(values, getTextThemeStyles(node))
                 break
         }
     })
     
     return themeMap
-
-    // TODO: Parse rgba to hex or normal rgba
-    // TODO: Create json for those themes
-    // TODO: Publish package
 }
-
 
 function getColorThemeItem(node: any): Omit<ColorThemeItem, "styleType"> {
     return { color: parseColorFromNode(node) }

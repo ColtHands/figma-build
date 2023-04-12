@@ -1,6 +1,6 @@
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
-import { type Arguments, Commands } from './types'
+import { type Arguments, Commands, OutputFormat } from './types'
 
 const argvWithoutBin = hideBin(process.argv)
 
@@ -22,7 +22,7 @@ export const accessToken = args.accessToken
 export const fileId = args.fileId
 export const outputPath = args.outputPath || ''
 export const filename = args.filename || ''
-export const outputFormat = args.outputFormat
+export const outputFormat = args.outputFormat as OutputFormat
 
 if(!accessToken) { throw "--accessToken wasn't provided" }
 if(!fileId) { throw "--fileId wasn't provided" }

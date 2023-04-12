@@ -9,7 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.parseOutputPath = exports.getNodeByName = exports.getNodeFills = void 0;
+    exports.getNodeByName = exports.getNodeFills = void 0;
     /**
      * This function takes node information received from `/files/:fileId/nodes` for a single node
      */
@@ -20,12 +20,10 @@
      * @returns - single node data found by it's name
      */
     function getNodeByName(nodes, name) {
-        console.log(getNodeByName, nodes);
-        return nodes[Object.keys(nodes).find(function (key) { return nodes[key].document.name === name; })];
+        var nodeId = Object.keys(nodes).find(function (key) { return nodes[key].document.name === name; });
+        if (!nodeId)
+            return null;
+        return nodes[nodeId];
     }
     exports.getNodeByName = getNodeByName;
-    function parseOutputPath(outputPathArgument) {
-        console.log(process.cwd);
-    }
-    exports.parseOutputPath = parseOutputPath;
 });
