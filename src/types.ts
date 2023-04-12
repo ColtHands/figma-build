@@ -81,3 +81,96 @@ export interface FillNode {
     schemaVersion: 0,
     styles: Record<string, never>
 }
+export interface Color { 
+    r: number
+    g: number
+    b: number
+    a: number
+}
+
+export enum FillType {
+    SOLID = "SOLID",
+    GRADIENT_LINEAR = "GRADIENT_LINEAR",
+    GRADIENT_RADIAL = "GRADIENT_RADIAL",
+    GRADIENT_ANGULAR = "GRADIENT_ANGULAR",
+    GRADIENT_DIAMOND = "GRADIENT_DIAMOND"
+}
+
+export interface FillGradient {
+    type: FillType.GRADIENT_LINEAR | FillType.GRADIENT_RADIAL | FillType.GRADIENT_ANGULAR | FillType.GRADIENT_DIAMOND
+    opacity: number
+    gradientStops: Array<{
+        color: Color;
+        /**
+         * From 0 to 1
+         */
+        position: number;
+    }>
+}
+
+export interface FillSolid {
+    type: FillType.SOLID
+    opacity: number
+    color: Color
+}
+
+export type Fill = FillGradient | FillSolid
+
+export type GradientFunctionType = "linear-gradient" | "radial-gradient" |"conic-gradient"
+
+export interface Color { 
+    r: number
+    g: number
+    b: number
+    a: number
+}
+
+export enum FillType {
+    SOLID = "SOLID",
+    GRADIENT_LINEAR = "GRADIENT_LINEAR",
+    GRADIENT_RADIAL = "GRADIENT_RADIAL",
+    GRADIENT_ANGULAR = "GRADIENT_ANGULAR",
+    GRADIENT_DIAMOND = "GRADIENT_DIAMOND"
+}
+
+export interface FillGradient {
+    type: FillType.GRADIENT_LINEAR | FillType.GRADIENT_RADIAL | FillType.GRADIENT_ANGULAR | FillType.GRADIENT_DIAMOND
+    opacity: number
+    gradientStops: Array<{
+        color: Color;
+        /**
+         * From 0 to 1
+         */
+        position: number;
+    }>
+}
+
+export interface FillSolid {
+    type: FillType.SOLID
+    opacity: number
+    color: Color
+}
+
+export type Fill = FillGradient | FillSolid
+
+export type GradientFunctionType = "linear-gradient" | "radial-gradient" |"conic-gradient"
+export interface FillNode {
+    document: {
+        id: string,
+        name: string,
+        fills: Array<{
+            opacity: number,
+            color: {
+                r: number,
+                g: number,
+                b: number,
+                a: number
+            }
+        }>,
+        strokes: Array<any>,
+    },
+    components: Record<string, never>,
+    componentSets: Record<string, never>,
+    schemaVersion: 0,
+    styles: Record<string, never>
+}
