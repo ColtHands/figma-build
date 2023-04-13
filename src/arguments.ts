@@ -1,5 +1,6 @@
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
+import { exitWithMessage } from './utils/exitWithMessage'
 import { type Arguments, Commands, OutputFormat } from './types'
 
 const argvWithoutBin = hideBin(process.argv)
@@ -25,8 +26,7 @@ export const filename = args.filename
 export const outputFormat = args.outputFormat as OutputFormat
 export const help = args.help
 
-if(args.help) { throw "HELP YO BRO" }
-if(!accessToken) { throw "--accessToken wasn't provided" }
-if(!fileId) { throw "--fileId wasn't provided" }
-if(!(command in Commands)) { throw `Initial command wasn't found, was looking for [${Object.values(Commands).join(" | ")}]` }
-if(outputFormat && !(outputFormat in OutputFormat)) { throw `Unrecognized outputFormat provided, provided ${outputFormat}, was looking [${Object.values(OutputFormat).join(" | ")}]`}
+if(!accessToken) { exitWithMessage("--accessToken wasn't provided") }
+if(!fileId) { exitWithMessage("--fileId wasn't provided") }
+if(!(command in Commands)) { exitWithMessage(`Initial command wasn't found, was looking for [${Object.values(Commands).join(" | ")}]`) }
+if(outputFormat && !(outputFormat in OutputFormat)) { exitWithMessage(`Unrecognized outputFormat provided, provided ${outputFormat}, was looking [${Object.values(OutputFormat).join(" | ")}]`) }
