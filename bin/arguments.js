@@ -26,6 +26,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     // TODO: Add `figma-build theme` flag
     // TODO: Add `figma-build components` flag
     // TODO: Add `--help` flag and shouldThrowWithHelpMessage logic
+    // TODO: Add correct filename logic
+    // TODO: Add all output formats
+    // TODO: Add css-variables as output format
     console.log("ARGUMENTS", (0, helpers_1.hideBin)(process.argv), args);
     exports.command = argvWithoutBin[0];
     exports.accessToken = args.accessToken;

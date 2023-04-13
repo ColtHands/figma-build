@@ -116,20 +116,25 @@ export interface FillSolid {
 export type Fill = FillGradient | FillSolid
 
 export type GradientFunctionType = "linear-gradient" | "radial-gradient" |"conic-gradient"
-export interface FillNode {
+export interface Node {
     document: {
         id: string,
         name: string,
-        fills: Array<{
-            opacity: number,
-            color: {
-                r: number,
-                g: number,
-                b: number,
-                a: number
-            }
-        }>,
+        fills: Array<Fill>,
         strokes: Array<any>,
+        style?: Record<string, never> & {
+            fontFamily: string,
+            fontPostScriptName: string,
+            fontWeight: number,
+            textAutoResize: "WIDTH_AND_HEIGHT", // TODO: update with possible values
+            fontSize: number,
+            textAlignHorizontal: "LEFT", // TODO: update with possible values
+            textAlignVertical: "TOP", // TODO: update with possible values
+            letterSpacing: number,
+            lineHeightPx: number,
+            lineHeightPercent: number,
+            lineHeightUnit: "INTRINSIC_%" // TODO: update with possible values
+        }
     },
     components: Record<string, never>,
     componentSets: Record<string, never>,

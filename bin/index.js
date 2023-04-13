@@ -23,6 +23,8 @@
             if (arguments_1.outputFormat == types_1.OutputFormat.commonjs) {
                 (0, writeFile_1.writeFile)('output', 'js', "module.exports = ".concat(JSON.stringify(theme, null, 4)), arguments_1.outputPath);
             }
+            /** TODO Add css theme @ColtHands */
+            /** TODO Add regexp to parse css styles @ColtHands */
         });
     }
 });

@@ -1,8 +1,10 @@
+import type { Node } from "../../types";
+
 /**
  * TODO: Parse full text styles
  * @ColtHands
  */
-export function getTextThemeItem(node: any): any {
+export function getTextThemeItem(node: Node): any {
     if(!node?.document?.style) return {}
 
     const {
