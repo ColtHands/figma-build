@@ -16,6 +16,11 @@
         StyleType["EFFECT"] = "EFFECT";
         StyleType["TEXT"] = "TEXT";
     })(StyleType = exports.StyleType || (exports.StyleType = {}));
+    var NodeType;
+    (function (NodeType) {
+        NodeType["RECTANGLE"] = "RECTANGLE";
+        NodeType["TEXT"] = "TEXT";
+    })(NodeType || (NodeType = {}));
     var FillType;
     (function (FillType) {
         FillType["SOLID"] = "SOLID";

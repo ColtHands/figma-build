@@ -1,7 +1,7 @@
-import { ColorThemeItem, Fill, FillType } from "../../types";
+import { ColorThemeItem, FillType, Node } from "../../types";
 import { extractGradient, extractSingleColorGradient } from "./extractGradient";
 
-export function getGradientThemeItem(node: { document: { fills: Fill[] } }): Omit<ColorThemeItem, "styleType"> {
+export function getGradientThemeItem(node: Node): Omit<ColorThemeItem, "styleType"> {
     const fills = node?.document?.fills ?? []
     const parsedFills: string[] = []
     for (const fill of fills ?? []) {
