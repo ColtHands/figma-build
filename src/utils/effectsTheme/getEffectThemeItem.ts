@@ -1,6 +1,7 @@
 import { type EffectThemeItem, type Node, EffectType } from "../../types";
 import { extractBoxShadow, extractInnerBoxShadow } from "./extractBoxShadow";
 import { extractFilter } from "./extractFilter";
+import { removeEmptyFields } from "../helpers";
 
 export function getEffectThemeItem(node: Node): Omit<EffectThemeItem, "styleType"> {
     const effects = node.document.effects ?? []
@@ -30,5 +31,5 @@ export function getEffectThemeItem(node: Node): Omit<EffectThemeItem, "styleType
                 break
         }
     }
-    return { ...parsedEffects, boxShadow: parsedBoxShadow.join(", ") }
+    return removeEmptyFields({ ...parsedEffects, boxShadow: parsedBoxShadow.length ? parsedBoxShadow.join(", ") : undefined })
 }
