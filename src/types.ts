@@ -71,6 +71,7 @@ export type Arguments = {
     outputPath: string,
     filename: string,
     outputFormat: OutputFormat,
+    help: boolean,
 }
 
 export enum OutputFormat {

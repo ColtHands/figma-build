@@ -23,8 +23,10 @@ export const fileId = args.fileId
 export const outputPath = args.outputPath || ''
 export const filename = args.filename
 export const outputFormat = args.outputFormat as OutputFormat
+export const help = args.help
 
+if(args.help) { throw "HELP YO BRO" }
 if(!accessToken) { throw "--accessToken wasn't provided" }
 if(!fileId) { throw "--fileId wasn't provided" }
 if(!(command in Commands)) { throw `Initial command wasn't found, was looking for [${Object.values(Commands).join(" | ")}]` }
-if(!(outputFormat in OutputFormat)) { throw `Unrecognized outputFormat provided, provided ${outputFormat}, was looking [${Object.values(OutputFormat).join(" | ")}]`}
+if(outputFormat && !(outputFormat in OutputFormat)) { throw `Unrecognized outputFormat provided, provided ${outputFormat}, was looking [${Object.values(OutputFormat).join(" | ")}]`}
