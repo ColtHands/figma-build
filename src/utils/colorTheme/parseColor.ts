@@ -1,4 +1,4 @@
-import {Color, Fill, FillGradient, FillSolid, FillType, GradientFunctionType} from "../types";
+import {Color, Fill, FillGradient, FillSolid, FillType, GradientFunctionType} from "../../types";
 
 const directionMap: Record<GradientFunctionType, string> = {
     "linear-gradient": "180deg",

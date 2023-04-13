@@ -1,6 +1,9 @@
 import { fetchFileData, fetchFileNodes } from './figmaApi'
 import { getNodeByName } from './utils/helpers'
-import { type ColorThemeItem, type EffectThemeItem, StyleType, type ThemeMap, type TextThemeItem } from "./types";
+import { StyleType, type ThemeMap } from "./types";
+import { getColorThemeItem } from "./utils/colorTheme/getColorThemeItem";
+import { getEffectThemeItem } from "./utils/effectsTheme/getEffectThemeItem";
+import { getTextThemeItem } from "./utils/textTheme/getTextThemeItem";
 
 export async function getFigmaThemeStyles(fileId: string): Promise<ThemeMap> {
     const fileData: any = await fetchFileData(fileId)
@@ -25,7 +28,7 @@ export async function getFigmaThemeStyles(fileId: string): Promise<ThemeMap> {
                 Object.assign(values, getEffectThemeItem(node))
                 break
             case StyleType.TEXT: // text styles: font-family, font-weight, font-size, line-height, letter-spacing, paragraph-spacing, text-decorations, text-transform, etc.
-                Object.assign(values, getTextThemeStyles(node))
+                Object.assign(values, getTextThemeItem(node))
                 break
         }
     })
