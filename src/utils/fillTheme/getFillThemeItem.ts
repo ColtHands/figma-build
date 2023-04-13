@@ -1,6 +1,7 @@
 import { type ColorThemeItem } from "../../types";
 import { parseColorFromNode } from "./parseColor";
 
-export function getColorThemeItem(node: any): Omit<ColorThemeItem, "styleType"> {
+export function getFillThemeItem(node: any): Omit<ColorThemeItem, "styleType"> {
+    // TODO: devide to color and gradient type on this level
     return { color: parseColorFromNode(node) }
 }

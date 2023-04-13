@@ -1,9 +1,9 @@
 import { fetchFileData, fetchFileNodes } from './figmaApi'
 import { getNodeByName } from './utils/helpers'
-import { StyleType, type ThemeMap } from "./types";
-import { getColorThemeItem } from "./utils/colorTheme/getColorThemeItem";
-import { getEffectThemeItem } from "./utils/effectsTheme/getEffectThemeItem";
-import { getTextThemeItem } from "./utils/textTheme/getTextThemeItem";
+import { StyleType, type ThemeMap } from "./types"
+import { getFillThemeItem } from "./utils/fillTheme/getFillThemeItem"
+import { getEffectThemeItem } from "./utils/effectsTheme/getEffectThemeItem"
+import { getTextThemeItem } from "./utils/textTheme/getTextThemeItem"
 
 export async function getFigmaThemeStyles(fileId: string): Promise<ThemeMap> {
     const fileData: any = await fetchFileData(fileId)
@@ -20,9 +20,7 @@ export async function getFigmaThemeStyles(fileId: string): Promise<ThemeMap> {
 
         switch (values.styleType) {
             case StyleType.FILL:
-                if(node.document.name === "gradient") console.log("node", node.document)
-                
-                Object.assign(values, getColorThemeItem(node))
+                Object.assign(values, getFillThemeItem(node))
                 break
             case StyleType.EFFECT: // shadows, blurs etc...
                 Object.assign(values, getEffectThemeItem(node))
