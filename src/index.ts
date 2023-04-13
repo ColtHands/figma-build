@@ -31,10 +31,10 @@ if(command === Commands.theme) {
             let outputFilename = filename || 'theme.js'
 
             writeFile(outputFilename, `export default ${outputTheme}`, outputPath)
-        } else if(outputFormat === OutputFormat.cssVariables) {
+        } else if(outputFormat === OutputFormat["css-variables"]) {
             let outputFilename = filename || 'theme.css'
             // let outputCssTheme = parseJsonToCss(theme);
-            writeFile(outputFilename, stringifyTheme(toCss(theme)), outputPath)
+            writeFile(outputFilename, toCss(theme), outputPath)
         }
 
         /** TODO Add css theme @ColtHands */
