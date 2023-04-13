@@ -37,8 +37,6 @@ export function toCssClassNames(obj: any) {
         return [`.${key.replace(/\./g, '-')}`, value]
     }))
 
-    console.log(typeof stringifyTheme(parsedObject))
-
     let css = "";
 
     for(const themeKey of Object.keys(parsedObject)) {

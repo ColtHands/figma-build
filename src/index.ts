@@ -8,15 +8,15 @@ import {
     outputFormat
 } from "./arguments"
 import { getFigmaThemeStyles } from './getFigmaThemeStyles'
+import { exitWithMessage } from './utils/exitWithMessage'
 import { writeFile } from './utils/writeFile'
 import { stringifyTheme } from './utils/stringifyTheme'
 import { toCssVariables, toCssClassNames } from './utils/parseJsonToCss'
 
 if(command === Commands.theme) {
     getFigmaThemeStyles(fileId).then(theme => {
-        console.log("THEME", theme)
         /** Parse javascript object to JSON while removing unnecessary fields */
-        const outputTheme = stringifyTheme(theme)
+        const outputTheme = stringifyTheme(theme) 
 
         if(outputFormat === OutputFormat.stdout) {
             process.stdout.write(outputTheme)
@@ -41,7 +41,7 @@ if(command === Commands.theme) {
 
             writeFile(outputFilename, toCssClassNames(theme), outputPath)
         } else {
-            throw `outputFormat ${outputFormat} is not yet supported`
+            exitWithMessage(`outputFormat ${outputFormat} is not yet supported`)
         }
     })
 }
