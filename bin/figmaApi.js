@@ -38,7 +38,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
         var nodeIdsAsUrlParams = new URLSearchParams([
             ["ids", nodeIds.join(',')]
         ]);
-        console.log('nodeIdsAsUrlParams', nodeIdsAsUrlParams);
         return figmaRequest("/files/".concat(fileId, "/nodes?").concat(nodeIdsAsUrlParams.toString()));
     }
     exports.fetchFileNodes = fetchFileNodes;

@@ -1,4 +1,8 @@
-export function getTextThemeStyles(node: any): any {
+/**
+ * TODO: Parse full text styles
+ * @ColtHands
+ */
+export function getTextThemeItem(node: any): any {
     if(!node?.document?.style) return {}
 
     const {

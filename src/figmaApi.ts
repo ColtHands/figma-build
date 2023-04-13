@@ -22,6 +22,5 @@ export function fetchFileNodes(fileId: string, nodeIds: string[]) {
     const nodeIdsAsUrlParams = new URLSearchParams([
         ["ids", nodeIds.join(',')]
     ])
-    console.log('nodeIdsAsUrlParams', nodeIdsAsUrlParams)
     return figmaRequest(`/files/${fileId}/nodes?${nodeIdsAsUrlParams.toString()}`)
 }
