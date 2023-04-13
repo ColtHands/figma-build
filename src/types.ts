@@ -21,19 +21,19 @@ export enum FillType {
 }
 
 export interface ColorThemeItem {
-    styleType: StyleType.FILL
+    styleType?: StyleType.FILL
     color: string
     fillType?: FillType
 }
 
 export interface EffectThemeItem {
-    styleType: StyleType.EFFECT
+    styleType?: StyleType.EFFECT
     // TBD
     boxShadow: string
 }
 
 export interface TextThemeItem {
-    styleType: StyleType.TEXT
+    styleType?: StyleType.TEXT
     // TBD
     fontSize: string
 }
@@ -59,12 +59,17 @@ export enum OutputFormat {
     esm = 'esm',
     commonjs = 'commonjs',
     css = 'css',
+    "css-variables" = 'css-variables',
+    sass = 'sass',
+    scss = 'scss',
+    "post-css" = 'post-css',
     stdout = 'stdout'
 }
 
 export enum Commands {
     theme = 'theme',
-    components = 'build'
+    components = 'build',
+    images = 'images'
 }
 
 export interface FillNode {

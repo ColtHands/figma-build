@@ -11,8 +11,6 @@ const argvWithoutBin = hideBin(process.argv)
 const args = yargs(argvWithoutBin).argv as unknown as Arguments
 
 // TODO: Add -v | --version flags
-// TODO: Add `figma-build theme` flag
-// TODO: Add `figma-build components` flag
 // TODO: Add `--help` flag and shouldThrowWithHelpMessage logic
 // TODO: Add correct filename logic
 // TODO: Add all output formats
@@ -24,9 +22,10 @@ export const command = argvWithoutBin[0]
 export const accessToken = args.accessToken
 export const fileId = args.fileId
 export const outputPath = args.outputPath || ''
-export const filename = args.filename || ''
+export const filename = args.filename
 export const outputFormat = args.outputFormat as OutputFormat
 
 if(!accessToken) { throw "--accessToken wasn't provided" }
 if(!fileId) { throw "--fileId wasn't provided" }
 if(!(command in Commands)) { throw `Initial command wasn't found, was looking for [${Object.values(Commands).join(" | ")}]` }
+if(!(outputFormat in OutputFormat)) { throw `Unrecognized outputFormat provided, provided ${outputFormat}, was looking [${Object.values(OutputFormat).join(" | ")}]`}
