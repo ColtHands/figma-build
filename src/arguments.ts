@@ -18,7 +18,7 @@ const args = yargs(argvWithoutBin).argv as unknown as Arguments
 
 export const command = argvWithoutBin[0]
 export const accessToken = args.accessToken
-export const file = args.file
+export const fileId = args.fileId
 export const outputPath = args.outputPath || ''
 export const filename = args.filename
 export const outputFormat: OutputFormat = args.outputFormat || "json"
