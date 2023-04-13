@@ -1,5 +1,6 @@
-import { type ColorThemeItem, type EffectThemeItem, StyleType, type ThemeMap, type TextThemeItem } from "./types";
+import { type ColorThemeItem } from "../../types";
+import { parseColorFromNode } from "./parseColor";
 
-function getColorThemeItem(node: any): Omit<ColorThemeItem, "styleType"> {
+export function getColorThemeItem(node: any): Omit<ColorThemeItem, "styleType"> {
     return { color: parseColorFromNode(node) }
 }

@@ -1,6 +1,19 @@
-import { type ColorThemeItem, type EffectThemeItem, StyleType, type ThemeMap, type TextThemeItem } from "./types";
+export function getTextThemeItem(node: any): any {
+    if(!node?.document?.style) return {}
 
-export function getTextThemeItem(node: any): Omit<TextThemeItem, "styleType"> {
-    // TODO: parse text styles
-    return { fontSize: "" }
+    const {
+        fontFamily,
+        fontWeight,
+        fontSize,
+        letterSpacing,
+        lineHeight
+    } = node.document.style
+
+    return {
+        fontFamily,
+        fontWeight,
+        fontSize,
+        letterSpacing,
+        lineHeight
+    }
 }

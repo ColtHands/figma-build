@@ -1,6 +1,6 @@
-import { type ColorThemeItem, type EffectThemeItem, StyleType, type ThemeMap, type TextThemeItem } from "./types";
+import { type EffectThemeItem } from "../../types";
 
-function getEffectThemeItem(node: any): Omit<EffectThemeItem, "styleType"> {
+export function getEffectThemeItem(node: any): Omit<EffectThemeItem, "styleType"> {
     // TODO: parse effect styles
     return { boxShadow: "" }
 }
