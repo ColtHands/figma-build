@@ -1,5 +1,6 @@
-import {Color, Fill, FillGradient, FillSolid, FillType, GradientFunctionType} from "../../types";
+import { Color, Fill, FillGradient, FillSolid, FillType, GradientFunctionType } from "../../types";
 
+// TODO: move to contents
 const directionMap: Record<GradientFunctionType, string> = {
     "linear-gradient": "180deg",
     "radial-gradient": "50% 50% at 50% 50%",
@@ -7,13 +8,13 @@ const directionMap: Record<GradientFunctionType, string> = {
 }
 
 export function parseColorFromNode(node: { document: { fills: Fill[] } }): string {
+    // TODO: divide to color and gradient types
     const fills = node?.document?.fills ?? []
     if (fills.length === 1 && fills[0].type === FillType.SOLID) {
         // NOTE: simple color, other things will be parsed as gradient
         return extractColor(fills[0])
     }
     const parsedFills: string[] = []
-    
     for(const fill of fills ?? []) {
         switch (fill.type) {
             case FillType.SOLID:
@@ -32,6 +33,7 @@ export function parseColorFromNode(node: { document: { fills: Fill[] } }): strin
         }
     }
 
+    // TODO: only for mixed gradient
     const hasDifferentTypes = fills.some(fill => fills.some(f => f.type !== fill.type))
     if (hasDifferentTypes) {
         // NODE: mixed gradients comes in reversed order, have no idea why
