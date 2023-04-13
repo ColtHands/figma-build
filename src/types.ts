@@ -29,7 +29,9 @@ export interface ColorThemeItem {
 export interface EffectThemeItem {
     styleType: StyleType.EFFECT
     // TBD
-    boxShadow: string
+    boxShadow?: string
+    filter?: string
+    backdropFilter?: string
 }
 
 export interface TextThemeItem {
@@ -134,10 +136,53 @@ export interface Node {
             lineHeightPx: number,
             lineHeightPercent: number,
             lineHeightUnit: "INTRINSIC_%" // TODO: update with possible values
-        }
+        },
+        effects: Effect[]
     },
     components: Record<string, never>,
     componentSets: Record<string, never>,
     schemaVersion: 0,
     styles: Record<string, never>
 }
+
+export enum EffectType {
+    DROP_SHADOW = "DROP_SHADOW",
+    INNER_SHADOW = "INNER_SHADOW",
+    LAYER_BLUR = "LAYER_BLUR",
+    BACKGROUND_BLUR = "BACKGROUND_BLUR"
+}
+
+export interface ShadowEffect {
+    visible: boolean,
+    color: Color,
+    offset: {
+        x: number,
+        y: number,
+    },
+    radius: number,
+    showShadowBehindNode: boolean,
+    spread?: number,
+}
+
+export interface DropShadowEffect extends ShadowEffect {
+    type: EffectType.DROP_SHADOW
+}
+
+export interface InnerShadowEffect extends ShadowEffect {
+    type: EffectType.INNER_SHADOW
+}
+
+export interface BlurEffect {
+    visible: boolean
+    radius: number
+}
+
+export interface LayerBlurEffect extends BlurEffect {
+    type: EffectType.LAYER_BLUR
+}
+
+export interface BackgroundBlurEffect extends BlurEffect {
+    type: EffectType.BACKGROUND_BLUR
+}
+
+export type Effect = DropShadowEffect | InnerShadowEffect | LayerBlurEffect | BackgroundBlurEffect;
