@@ -1,13 +1,17 @@
+import { exitWithMessage } from "./exitWithMessage";
+
 /**
  * Takes in theme and returns stringified JSON while removing unnecessary fields
  * @param theme returned theme from getFigmaThemeStyles
  */
-export function stringifyTheme(theme: any) {
+export function stringifyTheme(theme: any): string {
     try {
         return JSON.stringify(theme, styleTypeReplacer, 2);
     } catch(err) {
-        throw "Unable to parse the theme"
+        exitWithMessage("Unable to parse the theme")
     }
+
+    return ""
 }
 
 /**
