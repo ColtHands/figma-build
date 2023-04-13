@@ -9,3 +9,10 @@ export function getNodeByName(nodes: any, name: string) {
 
     return nodes[nodeId]
 }
+
+export function removeEmptyFields<T extends object>(data: T): Partial<T> {
+    return Object.fromEntries(Object.entries(data).filter(([, value]) => !isEmpty(value))) as Partial<T>;
+}
+export function isEmpty(value: any) {
+    return value === null || value === undefined || Array.isArray(value) && value.length === 0;
+}

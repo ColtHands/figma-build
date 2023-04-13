@@ -28,7 +28,6 @@ export interface ColorThemeItem {
 
 export interface EffectThemeItem {
     styleType?: StyleType.EFFECT
-    // TBD
     boxShadow?: string
     filter?: string
     backdropFilter?: string
@@ -36,8 +35,26 @@ export interface EffectThemeItem {
 
 export interface TextThemeItem {
     styleType?: StyleType.TEXT
-    // TBD
-    fontSize: string
+    fontFamily: string
+    fontWeight: number
+    /*  for CSS, should be converted to px */
+    fontSize: number
+    /*  for CSS, should be converted to px */
+    letterSpacing: number
+    /*  for CSS, number values should be converted to px */
+    lineHeight: number | string
+    /* draft CSS property
+
+    Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+    */
+    leadingTrim?: "both"
+    /* draft CSS property
+
+    Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+    */
+    textEdge?: "cap"
+    textTransform?: "uppercase" | "lowercase" | "capitalize"
+    textDecoration?: "underline" | "line-through"
 }
 
 export type ThemeItem = ColorThemeItem | EffectThemeItem | TextThemeItem
@@ -123,24 +140,32 @@ export interface FillSolid {
 export type Fill = FillGradient | FillSolid
 
 export type GradientFunctionType = "linear-gradient" | "radial-gradient" |"conic-gradient"
+export type TextCaseType = "UPPER" | "LOWER" | "TITLE"
+export type TextDecorationType = "UNDERLINE" | "STRIKETHROUGH"
+export type LineHeightUnitType = "FONT_SIZE_%" | "INTRINSIC_%"
 export interface Node {
     document: {
         id: string,
         name: string,
         fills: Array<Fill>,
         strokes: Array<any>,
-        style?: Record<string, never> & {
+        style?: {
             fontFamily: string,
             fontPostScriptName: string,
             fontWeight: number,
-            textAutoResize: "WIDTH_AND_HEIGHT", // TODO: update with possible values
+            textAutoResize: string,
             fontSize: number,
-            textAlignHorizontal: "LEFT", // TODO: update with possible values
-            textAlignVertical: "TOP", // TODO: update with possible values
+            textAlignHorizontal: string, // NOTE: this value comes with styles, but it is not saved as theme
+            textAlignVertical: string, // NOTE: this value comes with styles, but it is not saved as theme
             letterSpacing: number,
-            lineHeightPx: number,
-            lineHeightPercent: number,
-            lineHeightUnit: "INTRINSIC_%" // TODO: update with possible values
+            lineHeightPx?: number,
+            lineHeightPercentFontSize?: number,
+            lineHeightUnit: LineHeightUnitType,
+            leadingTrim?: "CAP_HEIGHT",
+            textDecoration?: TextDecorationType,
+            paragraphSpacing?: number,
+            listSpacing?: number,
+            textCase?: TextCaseType
         },
         effects: Effect[]
     },
