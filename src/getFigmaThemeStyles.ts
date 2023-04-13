@@ -1,6 +1,6 @@
 import { fetchFileData, fetchFileNodes } from './figmaApi'
 import { getNodeByName } from './utils/helpers'
-import { StyleType, type ThemeMap } from "./types"
+import {Node, StyleType, type ThemeMap} from "./types"
 import { getFillThemeItem } from "./utils/fillTheme/getFillThemeItem"
 import { getEffectThemeItem } from "./utils/effectsTheme/getEffectThemeItem"
 import { getTextThemeItem } from "./utils/textTheme/getTextThemeItem"
@@ -16,7 +16,7 @@ export async function getFigmaThemeStyles(fileId: string): Promise<ThemeMap> {
     const nodes: any = nodeData.nodes
 
     Object.entries(themeMap).forEach(([key, values]) => {
-        const node = getNodeByName(nodes, key)
+        const node: Node = getNodeByName(nodes, key)
 
         switch (values.styleType) {
             case StyleType.FILL:
