@@ -14,7 +14,6 @@ const args = yargs(argvWithoutBin).argv as unknown as Arguments
 // TODO: Add `--help` flag and shouldThrowWithHelpMessage logic
 // TODO: Add correct filename logic
 // TODO: Add all output formats
-// TODO: Add css-variables as output format
 
 console.log("ARGUMENTS", hideBin(process.argv), args)
 

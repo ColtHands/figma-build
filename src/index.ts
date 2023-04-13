@@ -10,11 +10,12 @@ import {
 import { getFigmaThemeStyles } from './getFigmaThemeStyles'
 import { writeFile } from './utils/writeFile'
 import { stringifyTheme } from './utils/stringifyTheme'
-import { toCss } from './utils/parseJsonToCss'
+import { toCssVariables, toCssClassNames } from './utils/parseJsonToCss'
 
 if(command === Commands.theme) {
     getFigmaThemeStyles(fileId).then(theme => {
-        /** Remove styleType field from output theme */
+        console.log("THEME", theme)
+        /** Parse javascript object to JSON while removing unnecessary fields */
         const outputTheme = stringifyTheme(theme)
 
         if(outputFormat === OutputFormat.stdout) {
@@ -33,11 +34,14 @@ if(command === Commands.theme) {
             writeFile(outputFilename, `export default ${outputTheme}`, outputPath)
         } else if(outputFormat === OutputFormat["css-variables"]) {
             let outputFilename = filename || 'theme.css'
-            // let outputCssTheme = parseJsonToCss(theme);
-            writeFile(outputFilename, toCss(theme), outputPath)
-        }
 
-        /** TODO Add css theme @ColtHands */
-        /** TODO Add regexp to parse css styles @ColtHands */
+            writeFile(outputFilename, toCssVariables(theme), outputPath)
+        } else if(outputFormat === OutputFormat.css) {
+            let outputFilename = filename || 'theme.css'
+
+            writeFile(outputFilename, toCssClassNames(theme), outputPath)
+        } else {
+            throw `outputFormat ${outputFormat} is not yet supported`
+        }
     })
 }
