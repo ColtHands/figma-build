@@ -16,16 +16,14 @@ const args = yargs(argvWithoutBin).argv as unknown as Arguments
 // TODO: Add correct filename logic
 // TODO: Add all output formats
 
-console.log("ARGUMENTS", hideBin(process.argv), args)
-
 export const command = argvWithoutBin[0]
 export const accessToken = args.accessToken
 export const fileId = args.fileId
 export const outputPath = args.outputPath || ''
 export const filename = args.filename
-export const outputFormat = args.outputFormat as OutputFormat
+export const outputFormat: OutputFormat = args.outputFormat || "json"
 
 if(!accessToken) { exitWithMessage("--accessToken wasn't provided") }
 if(!fileId) { exitWithMessage("--fileId wasn't provided") }
 if(!(command in Commands)) { exitWithMessage(`Initial command wasn't found, was looking for [${Object.values(Commands).join(" | ")}]`) }
-if(outputFormat && !(outputFormat in OutputFormat)) { exitWithMessage(`Unrecognized outputFormat provided, provided ${outputFormat}, was looking [${Object.values(OutputFormat).join(" | ")}]`) }
+if(!(outputFormat in OutputFormat)) { exitWithMessage(`Unrecognized outputFormat provided, provided ${outputFormat}, was looking [${Object.values(OutputFormat).join(" | ")}]`) }
