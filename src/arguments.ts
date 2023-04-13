@@ -24,7 +24,6 @@ export const fileId = args.fileId
 export const outputPath = args.outputPath || ''
 export const filename = args.filename
 export const outputFormat = args.outputFormat as OutputFormat
-export const help = args.help
 
 if(!accessToken) { exitWithMessage("--accessToken wasn't provided") }
 if(!fileId) { exitWithMessage("--fileId wasn't provided") }
