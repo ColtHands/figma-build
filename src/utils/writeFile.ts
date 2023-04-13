@@ -1,10 +1,9 @@
 import fs from 'node:fs/promises'
 import path from 'path'
 
-export async function writeFile(name: string, extension: string, contents: string, filePath: string = '') {
-    const filename = `${name}.${extension}`
+export async function writeFile(fileName: string, contents: string, filePath: string = '') {
     const dirToWrite = path.join(process.cwd(), filePath)
-    const fullFilePath = path.join(dirToWrite, filename)
+    const fullFilePath = path.join(dirToWrite, fileName)
 
     const hasDir = await dirExists(dirToWrite)
 

@@ -1,20 +1,40 @@
 #!/usr/bin/env node
-import { fileId, outputPath, command, outputFormat } from "./arguments"
 import { Commands, OutputFormat } from './types'
-import { writeFile } from './utils/writeFile'
+import {
+    fileId,
+    filename,
+    outputPath,
+    command,
+    outputFormat
+} from "./arguments"
 import { getFigmaThemeStyles } from './getFigmaThemeStyles'
+import { writeFile } from './utils/writeFile'
+import { stringifyTheme } from './utils/stringifyTheme'
+import { toCss } from './utils/parseJsonToCss'
 
 if(command === Commands.theme) {
     getFigmaThemeStyles(fileId).then(theme => {
+        /** Remove styleType field from output theme */
+        const outputTheme = stringifyTheme(theme)
 
-        console.log("THEME", theme)
+        if(outputFormat === OutputFormat.stdout) {
+            process.stdout.write(outputTheme)
+        } else if(!outputFormat && filename || outputFormat === OutputFormat.json) {
+            let outputFilename = filename || 'theme.json'
 
-        if(!outputFormat || outputFormat === OutputFormat.json) {
-            writeFile('output', 'json', JSON.stringify(theme, null, 4), outputPath)
-        }
+            writeFile(outputFilename, outputTheme, outputPath)
+        } else if(outputFormat === OutputFormat.commonjs) {
+            let outputFilename = filename || 'theme.js'
 
-        if(outputFormat == OutputFormat.commonjs) {
-            writeFile('output', 'js', `module.exports = ${JSON.stringify(theme, null, 4)}`, outputPath)
+            writeFile(outputFilename, `module.exports = ${outputTheme}`, outputPath)
+        } else if(outputFormat === OutputFormat.esm) {
+            let outputFilename = filename || 'theme.js'
+
+            writeFile(outputFilename, `export default ${outputTheme}`, outputPath)
+        } else if(outputFormat === OutputFormat["css-variables"]) {
+            let outputFilename = filename || 'theme.css'
+            // let outputCssTheme = parseJsonToCss(theme);
+            writeFile(outputFilename, toCss(theme), outputPath)
         }
 
         /** TODO Add css theme @ColtHands */
