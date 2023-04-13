@@ -6,6 +6,11 @@ export enum StyleType {
     TEXT = "TEXT",
 }
 
+enum NodeType {
+    RECTANGLE = "RECTANGLE",
+    TEXT = "TEXT",
+}
+
 export enum FillType {
     SOLID = "SOLID",
     GRADIENT_LINEAR = "GRADIENT_LINEAR",
