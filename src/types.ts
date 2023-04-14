@@ -22,7 +22,8 @@ export enum FillType {
 
 export interface ColorThemeItem {
     styleType?: StyleType.FILL
-    color: string
+    color?: string
+    background?: string
     fillType?: FillType
 }
 
