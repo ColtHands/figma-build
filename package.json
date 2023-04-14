@@ -1,6 +1,6 @@
 {
   "name": "@colthands/figma-build",
-  "version": "0.0.1",
+  "version": "0.0.2-0",
   "description": "figma-build is a script that fetches your figma theme styles and outputs them in various formats",
   "main": "src/index.js",
   "repository": {
@@ -14,13 +14,13 @@
   "author": "Aleksei <colthands@protonmail.com>, Olga <twertyolga@gmail.com>",
   "contributors": [
     {
-        "name": "Aleksei Karpenko",
-        "email": "colthands@protonmail.com",
-        "url": "https://colthands.dev/"
+      "name": "Aleksei Karpenko",
+      "email": "colthands@protonmail.com",
+      "url": "https://colthands.dev/"
     },
     {
-        "name": "Olga Buinitskaya",
-        "email": "twertyolga@gmail.com"
+      "name": "Olga Buinitskaya",
+      "email": "twertyolga@gmail.com"
     }
   ],
   "keywords": [
