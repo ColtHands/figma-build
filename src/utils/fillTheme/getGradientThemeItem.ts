@@ -28,5 +28,5 @@ export function getGradientThemeItem(node: Node): Omit<ColorThemeItem, "styleTyp
         parsedFills.reverse()
     }
 
-    return { color: parsedFills.join(", ") }
+    return { background: parsedFills.join(", ") }
 }

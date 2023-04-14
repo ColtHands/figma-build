@@ -1,0 +1,30 @@
+.ThemeItemBox {
+  width: calc(50% - 16px);
+  display: flex;
+  margin: 16px 8px;
+  overflow: hidden;
+}
+
+.ThemeItemBox .description {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.ThemeItemBox .example {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 16px;
+  text-align: center;
+}
+
+.ThemeItemBox code {
+  white-space: pre-wrap;
+  text-align: start;
+  tab-size: 2;
+}
