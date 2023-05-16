@@ -6,6 +6,7 @@
         "outDir": "bin",
         "moduleResolution": "nodenext",
         "esModuleInterop": true,
+        "types": ["vitest/globals"],
     },
-    "exclude": ["lib"]
+    "exclude": ["lib", "node_modules", "bin", "examples"]
 }
